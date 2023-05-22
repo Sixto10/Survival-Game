@@ -2,9 +2,13 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "CoreMinimal.h"  // minimal set of include and types required to work with unreal
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
+
+
+class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class ACTIONGAME_API ASCharacter : public ACharacter
@@ -12,14 +16,34 @@ class ACTIONGAME_API ASCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	ASCharacter();
+	
+	
 
 protected:
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileClass;
+	
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComp;
+
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* SpringArmComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void MoveForward(float Value);
+
+	void MoveRight(float Value);
+
+	void Fire();
+
 public:	
+
+	// Sets default values for this character's properties | constructor
+	ASCharacter();
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
